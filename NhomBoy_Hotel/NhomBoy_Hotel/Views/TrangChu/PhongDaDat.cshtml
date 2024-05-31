@@ -1,0 +1,377 @@
+﻿@model IEnumerable<NhomBoy_Hotel.DatPhong>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PhongDaDat</title>
+    <style>
+        body, html {
+            margin: 0;
+            width: 99%;
+            padding: 0;
+            text-align: center;
+        }
+
+        .left_content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            gap: 20px; /* Khoảng cách giữa các khối */
+        }
+
+        .prod_box {
+            text-align: center; /* Căn giữa nội dung bên trong theo chiều ngang */
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Khối chiếm toàn bộ chiều rộng của cột */
+            border: 1px solid #ddd;
+        }
+
+            .prod_box img {
+                width: 100%; /* Cố định chiều rộng của hình ảnh */
+                max-height: 350px; /* Cố định chiều cao tối đa của hình ảnh */
+                max-width: 100%;
+                height: auto;
+                width: 100%; /* Cố định chiều rộng của hình ảnh */
+            }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 96%;
+            navbar margin: auto;
+        }
+
+        .left_menu {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .left_menu ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .left_menu li {
+                width: 30%; /* 3 cột với khoảng cách giữa mỗi cột */
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .left_menu a {
+                text-decoration: none;
+                color: #333;
+                background-color: #4CAF50;
+                padding: 10px;
+                border-radius: 5px;
+                display: block;
+                text-align: center;
+            }
+
+        .left_content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 cột với chiều rộng bằng nhau */
+            gap: 20px; /* Khoảng cách giữa các khối */
+            margin-top: 20px;
+        }
+
+
+        .row h2 {
+            margin-top: 20px;
+        }
+
+        .details_button {
+            background-color: #007BFF; /* Màu xanh dương */
+            color: #fff; /* Màu chữ trắng */
+            padding: 5px; /* Độ lớn của button */
+
+            border-radius: 20px;
+            cursor: pointer;
+            width: 150px; /* Đặt chiều rộng mong muốn */
+            height: 40px; /* Đặt chiều cao mong muốn */
+        }
+
+        .danhmuc {
+            background-color: green;
+            color: #fff; /* Màu chữ trắng */
+            padding: 5px; /* Độ lớn của button */
+            cursor: pointer;
+            width: 150px; /* Đặt chiều rộng mong muốn */
+            height: 40px; /* Đặt chiều cao mong muốn */
+        }
+        /*css me nu ngang */
+        /* CSS cho thanh menu ngang */
+        .navbar {
+            overflow: hidden;
+            background-color: #333; /* Màu nền của thanh menu */
+            display: flex; /* Sử dụng Flexbox */
+            justify-content: space-around; /* Các phần tử được phân bố đều theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+        }
+
+            /* CSS cho các menu trong thanh menu */
+            .navbar a {
+                color: white;
+                text-align: center;
+                padding: 14px 20px;
+                text-decoration: none;
+            }
+
+        /* CSS cho các menu con */
+        .dropbtn {
+            position: relative;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 20px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #555; /* Màu nền của menu khi rê chuột vào */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333; /* Màu nền của menu con */
+            min-width: 160px;
+            z-index: 1;
+            text-align: left; /* Căn trái nội dung menu con */
+        }
+
+            .dropdown-content a {
+                color: white;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #555; /* Màu nền của menu con khi rê chuột vào */
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .product_link:hover {
+            color: red;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #343a40;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e9ecef;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+
+        .confirmation-message {
+            display: none;
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        footer .social-media a {
+            font-size: 1.5rem;
+        }
+
+            footer .social-media a:hover {
+                color: #ccc;
+            }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteLinks = document.querySelectorAll('a[href*="Delete"]');
+            deleteLinks.forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    var confirmDelete = confirm("Are you sure you want to delete this item?");
+                    if (!confirmDelete) {
+                        event.preventDefault();
+                        var confirmationMessage = link.parentNode.parentNode.querySelector('.confirmation-message');
+                        confirmationMessage.style.display = 'inline';
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <header style="width:100%">
+        <div>
+            <img class="img-responsive" src="~/img/anhks.jpg" style="width:100%;max-height:700px">
+        </div>
+        <div class="navbar">
+            <a onclick="window.location.href='@Url.Action("TrangChu", "TrangChu",new {MaKhachHang = ViewBag.MaKhachHang})'" style="background:white;color:black">Phòng</a>
+            <a onclick="window.location.href='@Url.Action("DichVu", "TrangChu",new { MaKhachHang = ViewBag.MaKhachHang})'">Dịch Vụ</a>
+            <a href="#">Giới Thiệu</a>
+            <a href="#">Bài Đăng</a>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    Cá Nhân
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a onclick="window.location.href='@Url.Action("SuaThongTin", "TrangChu",new { MaKhachHang = ViewBag.MaKhachHang })'">Xem thông tin cá nhân</a>
+                    <a href="#">Đổi mật khẩu</a>
+                    <a onclick="window.location.href='@Url.Action("PhongDaDat", "TrangChu",new{ MaKhachHang = ViewBag.MaKhachHang})'">Phòng Đã Đặt</a>
+                    <a href="../DangNhap_DangKy/DangNhap_DangKy">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+        <h1 style="font-size: 40px;margin-top:20px;text-align:center">DANH SÁCH PHÒNG THƯỢNG ĐẾ ĐẢ ĐẶT</h1>
+
+    </header>
+    <table class="table">
+        <tr>
+            <th>
+                Mã Phòng
+            </th>
+            <th>
+                Hình ảnh
+            </th>
+            <th>
+                Ngày nhận phòng
+            </th>
+            <th>
+                Ngày trả phòng
+            </th>
+            <th>
+                Số người
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Trạng thái thanh toán
+            </th>
+            <th>
+                Mã code
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.MaPhong)
+        </td>
+        <td>
+            @{
+                var dbContext = new DatPhongKhachSanEntities(); // Khởi tạo DbContext
+                var phong = dbContext.Phongs.FirstOrDefault(t => t.MaPhong == item.MaPhong);
+                
+            }
+           <img src="~/img/@phong.HinhAnh" style="width:100px;height:100px"/>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayNhanPhong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayTraPhong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoLuongNguoi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TongTien)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrangThai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrangThaiThanhToan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.code)
+        </td>
+        <td>
+            <div>   @Html.ActionLink("Dịch Vụ", "DsDichVu", new { MaDatPhong = item.MaDatPhong })</div>
+            <div>  @Html.ActionLink("Hủy phòng", "HuyPhong", new { MaDatPhong = item.MaDatPhong })</div>
+        </td>
+    </tr>
+        }
+
+    </table>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>Liên hệ: 0367686534| Địa chỉ : 40 Cao Thắng - Hải Châu - Đà Nẵng</p>
+        <div class="social-media">
+            <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>

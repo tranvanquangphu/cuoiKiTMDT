@@ -1,0 +1,204 @@
+﻿@model IEnumerable<NhomBoy_Hotel.Phong>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>QuanLyPhong</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/styles.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #444;
+        }
+
+        .table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .table th, .table td {
+                padding: 12px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #f2f2f2;
+            }
+
+            .table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .table tr:hover {
+                background-color: #f1f1f1;
+            }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px auto;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            .button:hover {
+                background-color: #2980b9;
+            }
+
+        .form-horizontal {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .text-danger {
+            color: #e74c3c;
+        }
+        select, button {
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff; /* Màu nút tìm kiếm */
+            color: #fff; /* Màu chữ trên nút */
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3; /* Màu hover của nút */
+            }
+    </style>
+</head>
+<body>
+    <h2>Danh sách Phòng</h2>
+
+    <button onclick="window.location.href='@Url.Action("DuyetPhong", "NhanVien")'" class="btn btn-approve" style="float:right;margin-right:100px;margin-bottom:40px">Duyệt phòng</button>
+    <button onclick="window.location.href='@Url.Action("QuanLyDichVu", "NhanVien")'" class="btn btn-approve" style="float:right;margin-right:100px;margin-bottom:40px">Quản lý dịch vụ</button>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaPhong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoPhong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoaiPhong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaMoiDem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaMoiGio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SucChua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HinhAnh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoSao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaPhong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoPhong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiPhong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaMoiDem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaMoiGio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SucChua)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MoTa)
+                </td>
+                <td>
+                    <img src="~/img/@Html.DisplayFor(modelItem => item.HinhAnh)" style="width:100px;height:100px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoSao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                <td>
+                    @Html.ActionLink("Xóa", "XoaPhong", new { MaPhong = item.MaPhong })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <p style="margin-left:800px">
+        @Html.ActionLink("Thêm phòng mới", "ThemPhong", null, new { @class = "button" })
+    </p>
+    <button onclick="window.location.href='@Url.Action("DangNhap_DangKy", "DangNhap_DangKy")'" class="btn btn-approve" style="float: right; margin-right: 100px; margin-bottom: 40px; background: black; color: white">Đăng xuất</button>
+
+</body>
+</html>

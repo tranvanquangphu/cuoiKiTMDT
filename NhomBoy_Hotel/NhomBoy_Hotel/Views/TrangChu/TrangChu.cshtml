@@ -1,0 +1,365 @@
+﻿@model IEnumerable<NhomBoy_Hotel.Phong>
+@{
+    ViewBag.Title = "TrangChu";
+    Layout = null;
+}
+
+<html>
+<head runat="server">
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+
+    <style>
+        body, html {
+            margin: 0;
+            width: 99%;
+            padding: 0;
+            text-align:center;
+        }
+
+        .left_content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            gap: 20px; /* Khoảng cách giữa các khối */
+        }
+
+        .prod_box {
+            text-align: center; /* Căn giữa nội dung bên trong theo chiều ngang */
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Khối chiếm toàn bộ chiều rộng của cột */
+            border: 1px solid #ddd;
+        }
+
+            .prod_box img {
+                width: 100%; /* Cố định chiều rộng của hình ảnh */
+                max-height: 350px; /* Cố định chiều cao tối đa của hình ảnh */
+                max-width: 100%;
+                height: auto;
+                width: 100%; /* Cố định chiều rộng của hình ảnh */
+            }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 96%;
+            navbar margin: auto;
+        }
+
+        .left_menu {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .left_menu ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .left_menu li {
+                width: 30%; /* 3 cột với khoảng cách giữa mỗi cột */
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .left_menu a {
+                text-decoration: none;
+                color: #333;
+                background-color: #4CAF50;
+                padding: 10px;
+                border-radius: 5px;
+                display: block;
+                text-align: center;
+            }
+
+        .left_content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 cột với chiều rộng bằng nhau */
+            gap: 20px; /* Khoảng cách giữa các khối */
+            margin-top: 20px;
+        }
+
+
+        .row h2 {
+            margin-top: 20px;
+        }
+
+        .details_button {
+            background-color: #007BFF; /* Màu xanh dương */
+            color: #fff; /* Màu chữ trắng */
+            padding: 5px; /* Độ lớn của button */
+
+            border-radius: 20px;
+            cursor: pointer;
+            width: 150px; /* Đặt chiều rộng mong muốn */
+            height: 40px; /* Đặt chiều cao mong muốn */
+        }
+
+        .danhmuc {
+            background-color: green;
+            color: #fff; /* Màu chữ trắng */
+            padding: 5px; /* Độ lớn của button */
+            cursor: pointer;
+            width: 150px; /* Đặt chiều rộng mong muốn */
+            height: 40px; /* Đặt chiều cao mong muốn */
+        }
+        /*css me nu ngang */
+        /* CSS cho thanh menu ngang */
+        .navbar {
+            overflow: hidden;
+            background-color: #333; /* Màu nền của thanh menu */
+            display: flex; /* Sử dụng Flexbox */
+            justify-content: space-around; /* Các phần tử được phân bố đều theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+        }
+
+            /* CSS cho các menu trong thanh menu */
+            .navbar a {
+                color: white;
+                text-align: center;
+                padding: 14px 20px;
+                text-decoration: none;
+            }
+
+        /* CSS cho các menu con */
+        .dropbtn {
+            position: relative;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 20px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #555; /* Màu nền của menu khi rê chuột vào */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333; /* Màu nền của menu con */
+            min-width: 160px;
+            z-index: 1;
+            text-align: left; /* Căn trái nội dung menu con */
+        }
+
+            .dropdown-content a {
+                color: white;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #555; /* Màu nền của menu con khi rê chuột vào */
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .product_link:hover {
+            color: red;
+        }
+      @* Khối thông tin *@
+        .right_panel {
+            position: fixed;
+            top: 400px; /* hoặc vị trí nào bạn muốn */
+            right: 0;
+            background:green;
+            width: 110px; /* Điều chỉnh kích thước tùy theo nhu cầu */
+            height: 130px; /* Kích thước chiều cao tùy theo nhu cầu */
+            padding:3px;
+            text-align:center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+            z-index: 999; /* Đảm bảo khối hiển thị trên các phần khác */
+            overflow-y: auto; /* Cho phép cuộn khi nội dung quá dài */
+            font-size:7px;
+        }
+        .star-rating {
+            display: flex;
+            align-items: center;
+        }
+
+        .star {
+            font-size: 20px; /* Adjust size as needed */
+            color: gold; /* Adjust color as needed */
+            margin-right: 2px; /* Space between stars */
+        }
+        form {
+            margin: 0 auto;
+            width: 50%; /* Điều chỉnh kích thước form theo ý muốn */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, button {
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff; /* Màu nút tìm kiếm */
+            color: #fff; /* Màu chữ trên nút */
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3; /* Màu hover của nút */
+            }
+    </style>
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="css/iecss.css" />
+    <![endif]-->
+    <script type="text/javascript" src="~/Scripts/boxOver.js"></script>
+</head>
+
+
+
+
+
+@*    <div class="spnoibat">
+        <h3 style="text-align:center;font-size:50px;color:red">SẢN PHẨM NỔI BẬT</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="~/img/xe01.jpeg" class="img-responsive" alt="" />
+            </div>
+            <div class="col-md-4">
+                <img src="~/img/xe02.jpeg" class="img-responsive" alt="" />
+            </div>
+            <div class="col-md-4">
+                <img src="~/img/xe03.jpeg" class="img-responsive" alt="" />
+            </div>
+        </div>
+    </div>*@
+<body>
+    <header style="width:100%">
+        <div>
+            <img class="img-responsive" src="~/img/anhks.jpg" style="width:100%;max-height:700px">
+        </div>
+        <div class="navbar">
+            <a href="#" style="background:white;color:black">Phòng</a>
+            <a onclick="window.location.href='@Url.Action("DichVu", "TrangChu",new { MaKhachHang = ViewBag.MaKhachHang})'">Dịch Vụ</a>
+            <a href="#">Giới Thiệu</a>
+            <a href="#">Bài Đăng</a>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    Cá Nhân
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a onclick="window.location.href='@Url.Action("SuaThongTin", "TrangChu",new { MaKhachHang = ViewBag.MaKhachHang })'">Xem thông tin cá nhân</a>
+                    <a href="#">Đổi mật khẩu</a>
+                    <a onclick="window.location.href='@Url.Action("PhongDaDat", "TrangChu",new{ MaKhachHang = ViewBag.MaKhachHang})'">Phòng Đã Đặt</a>
+                    <a href="../DangNhap_DangKy/DangNhap_DangKy">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+        <h1 style="font-size: 60px;margin-top:20px;text-align:center">BOY - KHÁCH HÀNG LÀ THƯỢNG ĐẾ</h1>
+        <p style="margin-top:2px">Địa chỉ : 40 Cao Thắng - Hải Châu -  Đà Nẵng</p>
+        <p>Liên hệ:0367686534</p>
+        <h1 style="font-size: 40px;margin-top:20px;text-align:center">MỜI THƯỢNG ĐẾ CHỌN PHÒNG</h1>
+
+        <form action="@Url.Action("TrangChu", "TrangChu", new { MaKhachHang = ViewBag.MaKhachHang })" method="post">
+            <div style="text-align: center;">
+                <label for="priceRange">Chọn khoảng giá phòng:</label>
+                <select name="loai" typeof="decimal">
+                    <option value="200000">Dưới 200,000 VND</option>
+                    <option value="600000">200,000 - 600,000 VND</option>
+                    <option value="1000000">600,000 VND- 1 triệu </option>
+                    <option value="-1">Trên 1 triệu </option>
+                    <option value="0">Xem tất cả</option>
+                    <!-- Thêm các khoảng giá khác nếu cần -->
+                </select>
+    
+                <button type="submit">Tìm kiếm</button>
+                </div>
+        </form>
+
+    </header>
+    @*    <div class="">
+            <div class="left_menu">
+                <ul>
+                    @foreach (var item in new DatPhongKhachSanEntities().Phongs)
+                    {
+                        <li class="odd">
+                            <button onclick="window.location.href='@Url.Action("LocDanhMuc", "TrangChu", new { loaiXe = item.loaiXe1,tenTaiKhoan = ViewBag.tenTK})'" class="danhmuc">@Html.DisplayFor(modelItem => item.tenLoaiXe)</button>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>*@
+
+<div class="left_content">
+    @foreach (var item in Model)
+    {
+        <div class="prod_box">
+            <div class="top_prod_box"></div>
+            <div class="center_prod_box">
+                <div class="product_title" style="margin-bottom:6px;">
+                    <a class="product_link" href="@Url.Action("XemChiTiet", "TrangChu", new { MaPhong = item.MaPhong,MaKhachHang=ViewBag.MaKhachHang})" style="text-decoration: none;">
+                        <span style="font-size: larger; font-weight: bold">@item.MoTa (@item.SoPhong)</span>
+                    </a>
+                </div>
+
+                <div class="product_img">
+                    <a href="@Url.Action("XemChiTiet", "TrangChu", new { MaPhong = item.MaPhong,MaKhachHang=ViewBag.MaKhachHang })">
+                        <img style="height:400px;width:300px" src="~/img/@Html.DisplayFor(modelItem => item.HinhAnh)" alt=""
+                             border="0" />
+                    </a>
+                </div>
+                <div class="prod_price" style="margin-top:10px">
+                    <span class="price">Giá : @Html.DisplayFor(modelItem => item.GiaMoiDem) / Ngày</span>
+                </div>
+                <!-- Add the star rating here -->
+                <div class="product_rating star-rating" style="margin-top:10px;float:right">
+                    @for (int i = 0; i < item.SoSao; i++)
+                    {
+                        <span class="star">★</span>
+                    }
+                    @for (int? i = item.SoSao; i < 5; i++)
+                    {
+                        <span class="star" style="color: lightgray;">★</span>
+                    }
+                </div>
+            </div>
+            <div class="bottom_prod_box"></div>
+            <div class="prod_details_tab">
+                <div class="prod_details_tab" style="margin-top:50px">
+                    <button onclick="window.location.href='@Url.Action("DienThongTin", "TrangChu", new { MaPhong = item.MaPhong, MaKhachHang = ViewBag.MaKhachHang })'" class="details_button">Đặt Phòng</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+</body>
+</html>
+

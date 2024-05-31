@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "TaoTaiKhoan";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Tài Khoản</title>
+    <link rel="stylesheet" href="~/style/TaoTaiKhoan.css">
+</head>
+
+<body>
+
+
+    <form action="TaoTaiKhoan" method="post">
+        <h2>Tạo Tài Khoản</h2>
+        <label>Chào bạn @ViewBag.tenKH</label>
+        <label>SDT :@ViewBag.SDT</label>
+        <label for="username">Tên tài khoản:</label>
+        <input type="text" name="tenTK" required><br>
+
+        <label for="password">Mật khẩu:</label>
+        <input type="password" name="matKhau" required><br>
+
+        <label for="confirm_password">Nhập lại mật khẩu:</label>
+        <input type="password" name="nlmatKhau" required><br>
+        <label for="code">Mã xác thực đả được gửi đến: @ViewBag.SDT</label>
+        <input type="text" name="code" required><br>
+        <button type="submit">Đăng kí</button>
+        <button type="button" onclick="window.location.href = '@Url.Action("XoaNguoiDung", "DangNhap_DangKy")'">Trở lại</button>
+    </form>
+</body>
+
+</html>

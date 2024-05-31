@@ -1,0 +1,59 @@
+﻿body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0px;
+}
+form {
+	background-color: #f0f0f0; /* Màu nền của form */
+	padding: 20px; /* Khoảng cách lề bên trong form */
+	border-radius: 10px; /* Bo góc của form */
+}
+.container {
+	width: 1000px; /* Đặt độ rộng của container */
+	margin: 0 auto; /* Căn giữa container */
+}
+
+
+
+h2 {
+	text-align: center;
+	font-size:40px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	width:600px;
+	margin-top:30px;
+}
+
+label {
+	margin-top: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+	width: 100%;
+	padding: 8px;
+	margin-top: 5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+button {
+	margin-top: 15px;
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	width:100px;
+	margin-left:250px;
+
+	cursor: pointer;
+}
+
+	button:hover {
+		background-color: #0056b3;
+	}

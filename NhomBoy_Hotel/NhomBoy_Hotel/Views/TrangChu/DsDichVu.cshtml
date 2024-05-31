@@ -1,0 +1,270 @@
+﻿@model IEnumerable<NhomBoy_Hotel.PhieuDichVu>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Danh sách dịch vụ</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <style>
+        body, html {
+            margin: 0;
+            width: 99%;
+            padding: 0;
+            text-align: center;
+        }
+
+        .left_content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            gap: 20px; /* Khoảng cách giữa các khối */
+        }
+
+        .prod_box {
+            text-align: center; /* Căn giữa nội dung bên trong theo chiều ngang */
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Khối chiếm toàn bộ chiều rộng của cột */
+            border: 1px solid #ddd;
+        }
+
+            .prod_box img {
+                width: 100%; /* Cố định chiều rộng của hình ảnh */
+                max-height: 350px; /* Cố định chiều cao tối đa của hình ảnh */
+                max-width: 100%;
+                height: auto;
+                width: 100%; /* Cố định chiều rộng của hình ảnh */
+            }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 96%;
+            navbar margin: auto;
+        }
+
+        .left_menu {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .left_menu ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .left_menu li {
+                width: 30%; /* 3 cột với khoảng cách giữa mỗi cột */
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .left_menu a {
+                text-decoration: none;
+                color: #333;
+                background-color: #4CAF50;
+                padding: 10px;
+                border-radius: 5px;
+                display: block;
+                text-align: center;
+            }
+
+        .left_content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 cột với chiều rộng bằng nhau */
+            gap: 20px; /* Khoảng cách giữa các khối */
+            margin-top: 20px;
+        }
+
+
+        .row h2 {
+            margin-top: 20px;
+        }
+
+        .details_button {
+            background-color: #007BFF; /* Màu xanh dương */
+            color: #fff; /* Màu chữ trắng */
+            padding: 5px; /* Độ lớn của button */
+
+            border-radius: 20px;
+            cursor: pointer;
+            width: 150px; /* Đặt chiều rộng mong muốn */
+            height: 40px; /* Đặt chiều cao mong muốn */
+        }
+
+        .danhmuc {
+            background-color: green;
+            color: #fff; /* Màu chữ trắng */
+            padding: 5px; /* Độ lớn của button */
+            cursor: pointer;
+            width: 150px; /* Đặt chiều rộng mong muốn */
+            height: 40px; /* Đặt chiều cao mong muốn */
+        }
+        /*css me nu ngang */
+        /* CSS cho thanh menu ngang */
+        .navbar {
+            overflow: hidden;
+            background-color: #333; /* Màu nền của thanh menu */
+            display: flex; /* Sử dụng Flexbox */
+            justify-content: space-around; /* Các phần tử được phân bố đều theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+        }
+
+            /* CSS cho các menu trong thanh menu */
+            .navbar a {
+                color: white;
+                text-align: center;
+                padding: 14px 20px;
+                text-decoration: none;
+            }
+
+        /* CSS cho các menu con */
+        .dropbtn {
+            position: relative;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 20px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #555; /* Màu nền của menu khi rê chuột vào */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333; /* Màu nền của menu con */
+            min-width: 160px;
+            z-index: 1;
+            text-align: left; /* Căn trái nội dung menu con */
+        }
+
+            .dropdown-content a {
+                color: white;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #555; /* Màu nền của menu con khi rê chuột vào */
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .product_link:hover {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header style="width:100%">
+        <div>
+            <img class="img-responsive" src="~/img/anhks.jpg" style="width:100%;max-height:700px">
+        </div>
+        <div class="navbar">
+            <a onclick="window.location.href='@Url.Action("TrangChu", "TrangChu",new {MaKhachHang = ViewBag.MaKhachHang})'" style="background:white;color:black">Phòng</a>
+            <a onclick="window.location.href='@Url.Action("DichVu", "TrangChu",new { MaKhachHang = ViewBag.MaKhachHang})'">Dịch Vụ</a>
+            <a href="#">Giới Thiệu</a>
+            <a href="#">Bài Đăng</a>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    Cá Nhân
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a onclick="window.location.href='@Url.Action("SuaThongTin", "TrangChu",new { MaKhachHang = ViewBag.MaKhachHang })'">Xem thông tin cá nhân</a>
+                    <a href="#">Đổi mật khẩu</a>
+                    <a onclick="window.location.href='@Url.Action("PhongDaDat", "TrangChu",new{ MaKhachHang = ViewBag.MaKhachHang})'">Phòng Đã Đặt</a>
+                    <a href="../DangNhap_DangKy/DangNhap_DangKy">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+        <h1 style="font-size: 40px;margin-top:20px;text-align:center">DANH SÁCH PHÒNG THƯỢNG ĐẾ ĐẢ ĐẶT</h1>
+
+    </header>
+    <div class="container">
+        <h1 class="my-4">Danh sách dịch vụ</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Phòng</th>
+                    <th scope="col">Nhân viên</th>
+                    <th scope="col">Ngày lập</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Số người</th>
+                    <th scope="col">Dịch vụ</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                var dbContext = new DatPhongKhachSanEntities(); // Khởi tạo DbContext
+                                var datphong = dbContext.DatPhongs.FirstOrDefault(t => t.MaDatPhong == item.MaDatPhong);
+                                var phong = dbContext.Phongs.FirstOrDefault(dv => dv.MaPhong == datphong.MaPhong);
+                                if (phong != null)
+                                {
+                                    @phong.SoPhong;
+                                }
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.MaNhanVien)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NgayLap)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TrangThai)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SoNguoi)</td>
+                        <td>
+                            @{
+                                var dichVu = dbContext.DichVus.FirstOrDefault(dv => dv.MaDichVu == item.MaDichVu);
+                                if (dichVu != null)
+                                {
+                                    @dichVu.TenDichVu
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Chỉnh sửa", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Hủy", "Xoa", new { MaDatPhong = ViewBag.MaDatPhong, MaDichVu = item.MaDichVu })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="mt-4">
+            @Html.ActionLink("Đăng ký", "DangKyDichVu", new { MaDatPhong = ViewBag.MaDatPhong }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</body>
+</html>

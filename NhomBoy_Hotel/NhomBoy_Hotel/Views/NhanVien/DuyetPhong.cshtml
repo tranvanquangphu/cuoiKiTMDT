@@ -1,0 +1,220 @@
+﻿@model IEnumerable<NhomBoy_Hotel.DatPhong>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DuyetPhong</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/styles.css" />
+    <script src="~/Scripts/script.js"></script>
+    <style>
+        /* Inline CSS for quick testing, move to a separate file for production */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+
+            .table th, .table td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .table th {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            .table tr:hover {
+                background-color: #ddd;
+            }
+
+        p {
+            text-align: center;
+            margin: 20px;
+        }
+
+            p a {
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+                p a:hover {
+                    background-color: #45a049;
+                }
+
+        .selected {
+            background-color: #4CAF50 !important;
+            color: white;
+        }
+        /* Add this CSS to your styles.css file or within a <style> tag in the <head> */
+        .btn {
+            padding: 6px 12px;
+            margin: 2px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #fff;
+            display: inline-block;
+        }
+
+        .btn-approve {
+            background-color: #4CAF50;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-approve:hover {
+                background-color: #45a049;
+            }
+
+        .btn-delete {
+            background-color: #f44336;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-delete:hover {
+                background-color: #e53935;
+            }
+
+        /* Ensure the cell does not collapse */
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            white-space: nowrap; /* Ensure buttons are not wrapped */
+        }
+        form {
+            margin: 0 auto;
+            width: 50%; /* Điều chỉnh kích thước form theo ý muốn */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, button {
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff; /* Màu nút tìm kiếm */
+            color: #fff; /* Màu chữ trên nút */
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3; /* Màu hover của nút */
+            }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const rows = document.querySelectorAll('.table tr');
+            rows.forEach(row => {
+                row.addEventListener('click', () => {
+                    rows.forEach(r => r.classList.remove('selected'));
+                    row.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <form action="@Url.Action("DuyetPhong", "NhanVien")" method="post">
+        <div style="text-align: center;">
+            <label for="priceRange">Lọc:  </label>
+            <select name="loai" typeof="decimal">
+                <option value="chuaDuyet">Chưa Duyệt</option>
+                <option value="chuaNhan">Chưa nhận</option>
+                <option value="chuaTra">Chưa Trả</option>
+                <option value="daTra">Đả trã </option>
+                <option>Xem tất cả </option>
+                <!-- Thêm các khoảng giá khác nếu cần -->
+            </select>
+
+            <button type="submit">Tìm kiếm</button>
+        </div>
+    </form>
+    <div><button onclick="window.location.href='@Url.Action("QuanLyPhong", "NhanVien")'" class="btn btn-approve" style="margin-left:1200px;margin-bottom:10px">Quản lý phòng</button></div>
+    <div><button onclick="window.location.href='@Url.Action("QuanLyDichVu", "NhanVien")'" class="btn btn-approve" style="margin-left: 1200px; margin-bottom: 10px">Quản lý dịch vụ</button></div>
+
+    <table class="table">
+        <tr>
+            <th>Mã khách hàng</th>
+            <th>Phòng</th>
+            <th>Ngày đặt</th>
+            <th>Ngày nhận phòng</th>
+            <th>Ngày trả phòng</th>
+            <th>Số lượng người</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th>Trạng thái thanh toán</th>
+            <th>Mã code</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.MaKhachHang)</td>
+                <td>
+                    @{
+                        var dbContext = new DatPhongKhachSanEntities(); // Khởi tạo DbContext
+                        var phong = dbContext.Phongs.FirstOrDefault(t => t.MaPhong == item.MaPhong);
+
+                    }
+                    @phong.SoPhong
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.NgayDat)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayNhanPhong)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayTraPhong)</td>
+                <td>@Html.DisplayFor(modelItem => item.SoLuongNguoi)</td>
+                <td>@Html.DisplayFor(modelItem => item.TongTien)</td>
+                <td>@Html.DisplayFor(modelItem => item.MaNhanVien)</td>
+                <td>@Html.DisplayFor(modelItem => item.TrangThai)</td>
+                <td>@Html.DisplayFor(modelItem => item.TrangThaiThanhToan)</td>
+                <td>@Html.DisplayFor(modelItem => item.code)</td>
+                <td>
+                    <div> @Html.ActionLink("Duyệt", "Duyet", new { MaDatPhong = item.MaDatPhong }, new { @class = "btn btn-approve" })</div>
+                    <div>   @Html.ActionLink("Xóa", "Xoa", new { MaDatPhong = item.MaDatPhong }, new { @class = "btn btn-delete" })</div>
+                </td>
+
+            </tr>
+        }
+    </table>
+    <button onclick="window.location.href='@Url.Action("DangNhap_DangKy", "DangNhap_DangKy")'" class="btn btn-approve" style="float: right; margin-right: 100px; margin-bottom: 40px; background: black; color: white">Đăng xuất</button>
+
+</body>
+</html>

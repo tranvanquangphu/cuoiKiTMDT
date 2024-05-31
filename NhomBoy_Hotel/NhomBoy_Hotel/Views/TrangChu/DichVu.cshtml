@@ -1,0 +1,186 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch Vụ Khách Sạn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .hero {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero h2, .hero p {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service {
+            padding: 3rem 1rem;
+        }
+
+            .service h2 {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .service .service-content {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .service img {
+                max-width: 100%;
+                border-radius: 10px;
+            }
+
+            .service .details {
+                display: none;
+                margin-top: 1rem;
+                background-color: #fff;
+                padding: 1rem;
+                border-radius: 10px;
+            }
+
+        footer .social-media a {
+            font-size: 1.5rem;
+        }
+
+            footer .social-media a:hover {
+                color: #ccc;
+            }
+
+    </style>
+</head>
+<body>
+    <header class="bg-dark text-white py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="logo">Khách Sạn BOY</h1>
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link text-white" href="#an-uong">Ăn Uống</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#vui-choi">Vui Chơi</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#thu-gian">Thư Giãn</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero text-center text-white d-flex flex-column justify-content-center align-items-center" style="background-image: url('/img/dichvu.jpg'); ">
+            <div class="hero-overlay"></div>
+            <h2>Chào mừng đến với Khách Sạn BOY</h2>
+            <p>Trải nghiệm dịch vụ cao cấp và tiện nghi hiện đại.</p>
+        </section>
+        <section id="an-uong" class="service bg-light py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Dịch Vụ Ăn Uống</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="~/img/anuong.jpg" alt="Ăn Uống" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            Thưởng thức các món ăn đa dạng từ nhiều nền ẩm thực khác nhau. Nhà hàng của chúng tôi cung cấp thực đơn phong phú với các món ăn quốc tế và địa phương, được chế biến bởi các đầu bếp tài năng. Tại đây, bạn sẽ có cơ hội trải nghiệm hương vị của các món ăn truyền thống Việt Nam, từ phở, bún chả, nem rán đến các món ăn đặc sản từ nhiều vùng miền khác nhau. Không chỉ vậy, nhà hàng của chúng tôi còn phục vụ các món ăn nổi tiếng từ nhiều quốc gia trên thế giới như sushi Nhật Bản, pizza Ý, steak Mỹ, hay curry Ấn Độ.
+
+                            Mỗi món ăn đều được chuẩn bị kỹ lưỡng, sử dụng các nguyên liệu tươi ngon nhất và tuân thủ nghiêm ngặt các tiêu chuẩn an toàn thực phẩm. Chúng tôi tự hào về đội ngũ đầu bếp với nhiều năm kinh nghiệm, luôn sáng tạo và đổi mới trong từng món ăn để mang đến cho bạn những trải nghiệm ẩm thực tuyệt vời.
+
+                            Ngoài ra, không gian nhà hàng được thiết kế sang trọng, ấm cúng với phong cách kiến trúc hiện đại nhưng vẫn giữ được nét truyền thống. Bạn có thể lựa chọn ngồi tại các bàn gần cửa sổ để ngắm nhìn cảnh quan xung quanh hoặc chọn các bàn riêng tư cho những buổi hẹn hò, gặp gỡ đối tác.
+                        </p>
+                        <div class="details mt-3" id="details-an-uong"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="vui-choi" class="service py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Dịch Vụ Vui Chơi</h2>
+                <div class="row">
+                    <div class="col-md-6 order-md-2">
+                        <img src="~/img/vuichoi.jpg" alt="Vui Chơi" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-6 order-md-1">
+                        <p>
+                            Tận hưởng các hoạt động vui chơi giải trí tại khách sạn của chúng tôi. Chúng tôi có hồ bơi, phòng gym, và nhiều hoạt động giải trí khác để bạn thư giãn và giải trí. Hồ bơi của chúng tôi được thiết kế hiện đại, với hệ thống lọc nước tiên tiến đảm bảo môi trường bơi an toàn và sạch sẽ. Bạn có thể bơi lội thoải mái dưới ánh nắng mặt trời hoặc thư giãn trên những chiếc ghế dài bên hồ bơi, thưởng thức một ly cocktail mát lạnh từ quầy bar bên cạnh.
+
+                            Phòng gym của khách sạn được trang bị đầy đủ các thiết bị tập luyện tiên tiến, từ máy chạy bộ, máy đạp xe, đến các dụng cụ tập tạ và yoga. Đội ngũ huấn luyện viên chuyên nghiệp luôn sẵn sàng hỗ trợ bạn trong việc xây dựng và thực hiện các chương trình tập luyện cá nhân phù hợp với mục tiêu và thể trạng của bạn. Ngoài ra, chúng tôi còn tổ chức các lớp học nhóm như yoga, aerobics, và zumba để bạn có thể rèn luyện sức khỏe và thư giãn tinh thần.
+
+                            Đối với những ai yêu thích các hoạt động ngoài trời, chúng tôi cung cấp các sân chơi tennis, bóng rổ, và các khu vực giải trí cho trẻ em với nhiều trò chơi thú vị và an toàn. Bạn có thể tham gia các trận đấu giao hữu hoặc đơn giản là vui chơi cùng gia đình và bạn bè trong không gian thoáng đãng, xanh mát.
+
+                            Ngoài ra, khách sạn còn có phòng giải trí với bàn bi-da, bàn bóng bàn, và khu vực chơi game hiện đại. Bạn có thể thách đấu bạn bè trong những trò chơi đầy kịch tính hoặc thử thách bản thân với các trò chơi điện tử phong phú. Đối với những ai yêu thích nghệ thuật, chúng tôi thường xuyên tổ chức các buổi biểu diễn nhạc sống, chiếu phim ngoài trời, và các sự kiện văn hóa đặc sắc.
+                        </p>
+                        <div class="details mt-3" id="details-vui-choi"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="thu-gian" class="service bg-light py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Dịch Vụ Thư Giãn</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="~/img/thugian.jpg" alt="Thư Giãn" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            Thư giãn với các dịch vụ spa, massage, và nhiều hơn nữa. Chúng tôi cung cấp các gói dịch vụ thư giãn để bạn có thể tận hưởng những phút giây thư thái nhất. Spa của chúng tôi được thiết kế với không gian yên tĩnh, ấm cúng, mang lại cảm giác thư giãn tuyệt đối. Các phòng trị liệu được trang bị đầy đủ tiện nghi hiện đại, với ánh sáng dịu nhẹ, hương thơm dễ chịu và âm nhạc êm ái, giúp bạn thả lỏng cơ thể và tinh thần.
+
+                            Chúng tôi cung cấp nhiều loại hình trị liệu spa đa dạng, từ massage truyền thống, massage đá nóng, đến các liệu pháp chăm sóc da mặt và cơ thể. Đội ngũ chuyên viên spa của chúng tôi được đào tạo chuyên sâu, có kinh nghiệm lâu năm và luôn sẵn sàng tư vấn để bạn chọn lựa liệu pháp phù hợp nhất với nhu cầu và mong muốn của mình. Bạn có thể chọn liệu trình thư giãn toàn thân để xua tan mệt mỏi, căng thẳng hoặc các liệu trình đặc trị để cải thiện tình trạng da, giảm đau nhức cơ bắp.
+
+                            Ngoài ra, chúng tôi còn có các gói dịch vụ chăm sóc sắc đẹp, bao gồm làm móng, chăm sóc tóc và liệu pháp thẩm mỹ khác. Bạn có thể tận hưởng trọn vẹn quá trình làm đẹp từ đầu đến chân trong không gian sang trọng và thoải mái. Đặc biệt, chúng tôi sử dụng các sản phẩm chăm sóc da và tóc từ những thương hiệu uy tín, đảm bảo an toàn và hiệu quả cao.
+
+                            Bên cạnh đó, khách sạn còn cung cấp các dịch vụ xông hơi và tắm bồn thủy lực, giúp bạn thư giãn cơ bắp, kích thích tuần hoàn máu và tăng cường sức khỏe tổng thể. Khu vực xông hơi của chúng tôi được trang bị các phòng xông hơi khô và ướt, với nhiệt độ và độ ẩm được điều chỉnh phù hợp, mang lại trải nghiệm thư giãn tối đa
+                        </p>
+                        <div class="details mt-3" id="details-thu-gian"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>Liên hệ: 0367686534| Địa chỉ : 40 Cao Thắng - Hải Châu - Đà Nẵng</p>
+        <div class="social-media">
+            <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

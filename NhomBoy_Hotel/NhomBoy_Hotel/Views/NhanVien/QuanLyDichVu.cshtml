@@ -1,0 +1,84 @@
+﻿@model IEnumerable<NhomBoy_Hotel.DichVu>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Quản Lý Dịch Vụ</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .action-link {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="window.location.href='@Url.Action("DuyetPhong", "NhanVien")'" class="btn btn-approve" style="float:right;margin-right:100px;margin-bottom:40px;background:black;color:white">Duyệt phòng</button>
+    <button onclick="window.location.href='@Url.Action("QuanLyPhong", "NhanVien")'" class="btn btn-approve" style="float: right; margin-right: 100px; margin-bottom: 40px; background: black; color: white">Quản lý phòng</button>
+    <div class="container">
+        <h2 class="text-center" style="margin-top:30px;margin-bottom:30px">Quản Lý Dịch Vụ</h2>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Tên dịch vụ
+                    </th>
+                    <th>
+                        Giá dịch vụ
+                    </th>
+                    <th>
+                        Hình ảnh
+                    </th>
+                    <th>
+                        Mô tả
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenDichVu)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GiaDichVu)
+                        </td>
+                        <td>
+                            <img src="~/img/@Html.DisplayFor(modelItem => item.HinhAnh)" style="width:100px;height:100px" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MoTa)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.ActionLink("Xóa DV", "XoaDV", new { MaDichVu = item.MaDichVu }, new { @class = "btn btn-danger action-link" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-center" style="margin-bottom:50px">
+            @Html.ActionLink("Thêm dịch vụ", "ThemDV", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+    <button onclick="window.location.href='@Url.Action("DangNhap_DangKy", "DangNhap_DangKy")'" class="btn btn-approve" style="float: right; margin-right: 100px; margin-bottom: 40px; background: black; color: white">Đăng xuất</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

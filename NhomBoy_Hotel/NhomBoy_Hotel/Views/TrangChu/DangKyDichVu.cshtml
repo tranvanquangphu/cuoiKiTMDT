@@ -1,0 +1,204 @@
+﻿@model IEnumerable<NhomBoy_Hotel.DichVu>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DangKyDichVu</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+            .navbar a {
+                color: white;
+                padding: 14px 20px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .navbar a:hover, .dropdown:hover .dropbtn {
+                    background-color: #555;
+                }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            padding: 14px 20px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            z-index: 1;
+            text-align: left;
+        }
+
+            .dropdown-content a {
+                color: white;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #555;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .service-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+            .service-table th, .service-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: center;
+            }
+
+            .service-table th {
+                background-color: #f2f2f2;
+            }
+
+            .service-table img {
+                max-width: 100px;
+                height: auto;
+                border-radius: 5px;
+            }
+
+        .register-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+            .register-button:hover {
+                background-color: #45a049;
+            }
+
+        .header-title {
+            font-size: 60px;
+            margin-top: 20px;
+        }
+
+        .header-subtitle {
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <img class="img-responsive" src="~/img/anhks.jpg" style="width:100%;max-height:700px">
+        </div>
+        <div class="navbar">
+            <a href="#" style="background:white;color:black">Phòng</a>
+            <a href="@Url.Action("DichVu", "TrangChu", new { MaKhachHang = ViewBag.MaKhachHang })">Dịch Vụ</a>
+            <a href="#">Giới Thiệu</a>
+            <a href="#">Bài Đăng</a>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    Cá Nhân
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="@Url.Action("SuaThongTin", "TrangChu", new { MaKhachHang = ViewBag.MaKhachHang })">Xem thông tin cá nhân</a>
+                    <a href="#">Đổi mật khẩu</a>
+                    <a href="@Url.Action("PhongDaDat", "TrangChu", new { MaKhachHang = ViewBag.MaKhachHang })">Phòng Đã Đặt</a>
+                    <a href="../DangNhap_DangKy/DangNhap_DangKy">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+        <h1 class="header-title">BOY - KHÁCH HÀNG LÀ THƯỢNG ĐẾ</h1>
+        <p class="header-subtitle">Địa chỉ : 40 Cao Thắng - Hải Châu - Đà Nẵng</p>
+    </header>
+
+    <div class="main-content">
+        <h2>Danh sách dịch vụ của chúng tôi</h2>
+        <table class="service-table">
+            <thead>
+                <tr>
+                    <th>Tên Dịch Vụ</th>
+                    <th>Giá</th>
+                    <th>Hình Ảnh</th>
+                    <th>Mô Tả</th>
+                    <th>Số lượng</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @using (Html.BeginForm("DangKyDV", "TrangChu", FormMethod.Post))
+                        {
+                            <td>@Html.DisplayFor(modelItem => item.TenDichVu)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GiaDichVu) VNĐ</td>
+                            <td><img src="~/img/@item.HinhAnh" alt="Hình ảnh dịch vụ" /></td>
+                            <td>@Html.DisplayFor(modelItem => item.MoTa)</td>
+                            <td>
+                                <input type="number" class="form-control" id="soNguoi" name="SoNguoi" placeholder="Nhập số người">
+                                <input type="hidden" name="MaDatPhong" value="@ViewBag.MaDatPhong" />
+                                <input type="hidden" name="MaDichVu" value="@item.MaDichVu" />
+                            </td>
+                            <td>
+                                <button type="submit" class="register-button">Đăng ký</button>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div style="background-color: #007bff; padding: 8px 16px; color: #fff; border-radius: 4px;width:140px;margin-left:550px;margin-top:20px;text-align:center">
+            @Html.ActionLink("Xong", "PhongDaDat", new { MaKhachHang = ViewBag.MaKhachHang })
+        </div>
+
+
+    </div>
+</body>
+</html>

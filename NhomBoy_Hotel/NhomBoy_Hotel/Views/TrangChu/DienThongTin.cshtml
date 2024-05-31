@@ -1,0 +1,134 @@
+﻿@model KhachHang
+@{
+    ViewBag.Title = "DienThongTin";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác nhận thông tin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/style/styleDienThongTin.css">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <script type="text/javascript">
+        function kiemTra() {
+            var soNguoi = document.getElementById('soNguoi').value;
+            var ngayNhanPhong = document.getElementById('ngayNhanPhong').value;
+            var ngayTraPhong = document.getElementById('ngayTraPhong').value;
+
+            $.ajax({
+                url: '@Url.Action("KiemTra", "TrangChu")',
+                type: 'GET',
+                data: {
+                    SoNguoi: soNguoi,
+                    NgayNhanPhong: ngayNhanPhong,
+                    NgayTraPhong: ngayTraPhong,
+                    MaPhong: '@ViewBag.MaPhong',
+                    MaKhachHang: '@Model.MaKhachHang'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Chuyển hướng nếu kiểm tra thành công
+                          $('#kiemTraMessage').html('<div class="alert alert-warning">' + response.message + '</div>');
+                        $('button[type="submit"]').prop('disabled', false); // Bật nút "Xác nhận"
+                    } else {
+                        // Hiển thị thông báo nếu kiểm tra không thành công
+                        $('#kiemTraMessage').html('<div class="alert alert-warning">' + response.message + '</div>');
+                        $('button[type="submit"]').prop('disabled', true); // Vô hiệu hóa nút "Xác nhận"
+                    }
+                },
+                error: function() {
+                    $('#kiemTraMessage').html('<div class="alert alert-danger">Có lỗi xảy ra. Vui lòng thử lại sau.</div>');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center my-4">XÁC NHẬN THÔNG TIN NHÉ</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="label-info">Chào bạn, @Model.HoTen</div>
+                <div class="label-info">Ngày sinh: @Model.ngaySinh</div>
+                <div class="label-info">Số điện thoại: @Model.SoDienThoai</div>
+                <div class="label-info">Địa chỉ: @Model.DiaChi</div>
+                <div class="label-info">Bạn muốn thuê phòng @ViewBag.SoPhong</div>
+                <div class="label-info">Số tiền một ngày @ViewBag.SoTien</div>
+                <img src="~/img/@ViewBag.hinhAnh" class="img-fluid my-3" alt="Ảnh xe">
+            </div>
+            <div class="col-md-6">
+                <form action="@Url.Action("XacNhanThanhToan", "TrangChu", new { MaPhong = ViewBag.MaPhong, MaKhachHang=Model.MaKhachHang,Code=ViewBag.Code})" method="post">
+                    <div class="form-group">
+                        <label for="soGioThue">Số người :</label>
+                        <input type="number" class="form-control" id="soNguoi" name="SoNguoi" placeholder="Nhập số người">
+                    </div>
+                    <div class="form-group">
+                        <label for="soLuong">Ngày Nhận Phòng : </label>
+                        <input type="date" class="form-control" id="ngayNhanPhong" name="NgayNhanPhong">
+                    </div>
+                    <div class="form-group">
+                        <label for="ngayNhanXe">Ngày trả phòng : </label>
+                        <input type="date" class="form-control" id="ngayTraPhong" name="NgayTraPhong">
+                    </div>
+                    <div id="kiemTraMessage"></div>
+                    <button type="button" onclick="kiemTra()" style="margin-left:200px;background:green;font-size:20px;margin-bottom:10px;color:white">Kiểm tra</button>
+
+                    <div class="form-group">
+                        <label for="ngayNhanXe">Chọn phương thức thanh toán:</label>
+                        <div class="form-row" style="margin-top:10px">
+                            <div class="col-auto">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="phuongThucThanhToan" id="thanhToanTrucTuyen" value="trucTuyen" onclick="showQRCode()">
+                                    <label class="form-check-label" for="thanhToanTrucTuyen">
+                                        Thanh toán trực tuyến
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-auto" style="margin-left:40px">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="phuongThucThanhToan" id="thanhToanTaiCuaHang" value="taiKhachSan" onclick="hideQRCode()">
+                                    <label class="form-check-label" for="thanhToanTaiCuaHang">
+                                        Thanh toán tại khách sạn
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="qrCodeContainer" style="display:none; margin-top:20px;">
+                                <img src="~/img/qr.jpg" alt="QR Code" id="qrCode" style="width:200px;height:250px;margin-left:100px;">
+                                <p>Số tài khoản : 1012895829 </p>
+                                <p>Tên tài khoản: TRANVANQUANGPHU</p>
+                                <p>Ngân hàng : VIETCOMBANK</p>
+                                <p>Với nội dung: @ViewBag.Code</p>
+                                <p>Số tiền: @ViewBag.SoTien * Số ngày bạn tính dùm tôi nhé!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-primary" style="background:red;margin-left:100px;width:100px;margin-top:20px" onclick="goBack()">Trở lại</button>
+                    <button type="submit" class="btn-primary">Xác nhận</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function showQRCode() {
+            document.getElementById('qrCodeContainer').style.display = 'block';
+        }
+
+        function hideQRCode() {
+            document.getElementById('qrCodeContainer').style.display = 'none';
+        }
+
+    </script>
+</body>
+</html>
